@@ -1,5 +1,9 @@
-<h1>New State</h1>
+<h2><%= @report.title %>の状態</h2>
 
-<%= render 'form', state: @state %>
-
-<%= link_to 'Back', states_path %>
+<%= form_for [@report, @state] do |f| %>
+  <div>
+    <%= f.label :state, '状態は？' %>
+    <%= f.select :state, State.states.keys.map {|k| [k, k]} %>
+  </div>
+  <%= f.submit %>
+<% end %>

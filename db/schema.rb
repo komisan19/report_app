@@ -10,12 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180116061201) do
+ActiveRecord::Schema.define(version: 20180116184242) do
+
+  create_table "reports", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "title"
+    t.text "context"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "states", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "state"
+    t.bigint "report_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["report_id", "user_id"], name: "index_states_on_report_id_and_user_id", unique: true
+    t.index ["report_id"], name: "index_states_on_report_id"
+    t.index ["user_id"], name: "index_states_on_user_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -35,4 +47,6 @@ ActiveRecord::Schema.define(version: 20180116061201) do
     t.index ["provider", "uid", "name"], name: "index_users_on_provider_and_uid_and_name", unique: true
   end
 
+  add_foreign_key "states", "reports"
+  add_foreign_key "states", "users"
 end

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class StatesControllerTest < ActionDispatch::IntegrationTest
+class ReportTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
